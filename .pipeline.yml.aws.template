@@ -3,6 +3,7 @@ pipeline:
     image: banzaicloud/plugin-pipeline-client:latest
     cluster_name: "[[your-cluster-name]]"
     cluster_provider: "amazon"
+    amazon_node_mincount: "2"
 
     secrets: [plugin_endpoint, plugin_token]
 
