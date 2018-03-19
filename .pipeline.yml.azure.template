@@ -63,6 +63,7 @@ pipeline:
       spark.metrics.conf: /opt/spark/conf/metrics.properties
       spark.eventLog.enabled: "true"
       spark.eventLog.dir: "wasb://[[your-storage-container]]@{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}.blob.core.windows.net/[[your-log-folder]]"
+      spark.hadoop.fs.azure.account.key.{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}.blob.core.windows.net: "{{ .PLUGIN_AZURE_STORAGE_ACCOUNT_ACCESS_KEY }}"
     spark_submit_app_args:
       - target/scala-2.11/sf-police-incidents_2.11-0.1.jar
       - --dataPath wasb://pdidata@sparkpdidata.blob.core.windows.net/Police_Department_Incidents.csv
