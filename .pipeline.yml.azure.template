@@ -5,6 +5,7 @@ pipeline:
     cluster_provider: "azure"
     cluster_location: "eastus"
     azure_resource_group: "[[your-az-resource-group]]"
+    azure_node_count: 2
     secrets: [plugin_endpoint, plugin_token]
 
   install_monitoring:
@@ -23,9 +24,9 @@ pipeline:
         enabled: true
       spark-hs:
         app:
-          logDirectory: "wasb://[[your-storage-container]]@{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}.blob.core.windows.net/[[your-log-folder]]"
-          azure_storage_account: "{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}"
-          azure_storage_account_access_key: "{{ .PLUGIN_AZURE_STORAGE_ACCOUNT_ACCESS_KEY }}"
+          logDirectory: "wasb://[[your-storage-container]]@{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}.blob.core.windows.net/"
+          azureStorageAccountName: "{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}"
+          azureStorageAccessKey: "{{ .PLUGIN_AZURE_STORAGE_ACCOUNT_ACCESS_KEY }}"
     secrets: [plugin_endpoint, plugin_token, plugin_azure_storage_account, plugin_azure_storage_account_access_key]
 
   remote_checkout:
@@ -62,7 +63,7 @@ pipeline:
       spark.kubernetes.authenticate.driver.serviceAccountName: spark
       spark.metrics.conf: /opt/spark/conf/metrics.properties
       spark.eventLog.enabled: "true"
-      spark.eventLog.dir: "wasb://[[your-storage-container]]@{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}.blob.core.windows.net/[[your-log-folder]]"
+      spark.eventLog.dir: "wasb://[[your-storage-container]]@{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}.blob.core.windows.net/"
       spark.hadoop.fs.azure.account.key.{{ .PLUGIN_AZURE_STORAGE_ACCOUNT }}.blob.core.windows.net: "{{ .PLUGIN_AZURE_STORAGE_ACCOUNT_ACCESS_KEY }}"
     spark_submit_app_args:
       - target/scala-2.11/sf-police-incidents_2.11-0.1.jar
