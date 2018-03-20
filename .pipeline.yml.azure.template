@@ -1,7 +1,8 @@
 pipeline:
   create_cluster:
     image: banzaicloud/plugin-pipeline-client:latest
-    cluster_name: "spark-pi-cluster"
+# Only numbers, lowercase letters and underscores are allowed under name property. In addition, the value cannot end with an underscore, and must also be less than 32 characters long.
+    cluster_name: "spark_pdi_cluster"
     cluster_provider: "azure"
     cluster_location: "eastus"
     azure_resource_group: "[[your-az-resource-group]]"
