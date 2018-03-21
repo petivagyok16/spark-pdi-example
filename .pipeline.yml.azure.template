@@ -1,7 +1,7 @@
 pipeline:
   create_cluster:
     image: banzaicloud/plugin-pipeline-client:0.3.0
-    cluster_name: "spark-pi-cluster"
+    cluster_name: "[[yourclustername]]"
     cluster_provider: "azure"
     cluster_location: "eastus"
     azure_resource_group: "[[your-az-resource-group]]"
