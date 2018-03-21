@@ -4,7 +4,6 @@ pipeline:
     cluster_name: "[[your-cluster-name]]"
     cluster_provider: "google"
     google_project: "[[your-google-project]]"
-    google_gke_version: "1.8.7-gke.1"
     google_node_count: "2"
 
     secrets: [plugin_endpoint, plugin_token]
@@ -25,7 +24,7 @@ pipeline:
         enabled: true
      spark-hs:
        app:
-         logDirectory: "gs://your-gs-bucket/your-folder"
+         logDirectory: "gs://[[your-gs-bucket]]/"
 
     secrets: [plugin_endpoint, plugin_token]
 
@@ -51,9 +50,9 @@ pipeline:
     spark_submit_configs:
       spark.app.name: SFPDIncidents
       spark.local.dir: /tmp/spark-locals
-      spark.kubernetes.driver.docker.image: banzaicloud/spark-driver:v2.2.1-k8s-1.0.10
-      spark.kubernetes.executor.docker.image: banzaicloud/spark-executor:v2.2.1-k8s-1.0.10
-      spark.kubernetes.initcontainer.docker.image: banzaicloud/spark-init:v2.2.1-k8s-1.0.10
+      spark.kubernetes.driver.docker.image: banzaicloud/spark-driver:v2.2.1-k8s-1.0.11
+      spark.kubernetes.executor.docker.image: banzaicloud/spark-executor:v2.2.1-k8s-1.0.11
+      spark.kubernetes.initcontainer.docker.image: banzaicloud/spark-init:v2.2.1-k8s-1.0.11
       spark.dynamicAllocation.enabled: "true"
       spark.kubernetes.resourceStagingServer.uri: http://spark-rss:10000
       spark.kubernetes.resourceStagingServer.internal.uri: http://spark-rss:10000
@@ -63,7 +62,7 @@ pipeline:
       spark.kubernetes.authenticate.driver.serviceAccountName: spark
       spark.metrics.conf: /opt/spark/conf/metrics.properties
       spark.eventLog.enabled: "true"
-      spark.eventLog.dir: "gs://[[storage-bucket/folder]]"
+      spark.eventLog.dir: "gs://[[your-gs-bucket]]/"
     spark_submit_app_args:
       - target/scala-2.11/sf-police-incidents_2.11-0.1.jar
-      - --dataPath "gs://puski-testing/pdidata/Police_Department_Incidents.csv"
+      - --dataPath "gs://[[your-gs-bucket-with-pdi-data]]]/Police_Department_Incidents.csv"
